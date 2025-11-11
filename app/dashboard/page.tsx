@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import { getUserWorkoutsByDate } from "@/data/workouts";
 import { DateSelector } from "./date-selector";
 import { WorkoutsList } from "./workouts-list";

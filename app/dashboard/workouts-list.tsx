@@ -117,7 +117,7 @@ export function WorkoutsList({ workouts, selectedDate }: WorkoutsListProps) {
               No workouts logged for this date
             </p>
             <p className="text-sm text-muted-foreground mt-2">
-              Click "Add Workout" to log your first workout
+              Click &ldquo;Add Workout&rdquo; to log your first workout
             </p>
             <Button className="mt-4">Add Your First Workout</Button>
           </CardContent>
