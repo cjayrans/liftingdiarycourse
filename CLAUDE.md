@@ -6,6 +6,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a Next.js 16 application using the App Router, TypeScript, React 19, and Tailwind CSS v4. The project appears to be a lifting diary/course application (based on the repository name).
 
+## IMPORTANT: Documentation Reference Policy
+
+**ALWAYS refer to the `/docs` directory when generating code.**
+
+When creating, modifying, or working with any code in this repository, you MUST:
+- Check for relevant documentation files in the `/docs` directory
+- Reference and follow patterns, guidelines, and examples from the applicable docs
+- Ensure consistency with documented standards and practices
+- If no relevant documentation exists, generate code following best practices for the framework/library being used
+
+The `/docs` directory contains authoritative guidance for this project. Adherence to these documents is mandatory for all code generation.
+- /docs/ui.md
+
 ## Development Commands
 
 **Start development server:**
