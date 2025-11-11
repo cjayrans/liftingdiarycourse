@@ -80,3 +80,26 @@ export async function getUserWorkoutsByDate(date: Date) {
 
   return workoutsWithDetails;
 }
+
+export type NewWorkout = {
+  name: string | null;
+  startedAt: Date;
+};
+
+export async function createWorkout(data: NewWorkout) {
+  const session = await auth();
+  if (!session?.userId) {
+    throw new Error('Unauthorized');
+  }
+
+  // Always set userId from session, never from client input
+  const result = await db
+    .insert(workouts)
+    .values({
+      ...data,
+      userId: session.userId, // CRITICAL: Force user ownership
+    })
+    .returning();
+
+  return result[0];
+}

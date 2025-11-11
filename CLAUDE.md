@@ -14,6 +14,8 @@ When creating, modifying, or working with any code in this repository, you MUST:
 - Check for relevant documentation files in the `/docs` directory. Reference and follow patterns, guidelines, and examples from the applicable docs. Ensure consistency with documented standards and practices:
   - /docs/ui.md
   - /docs/data-fetching.md
+  - /docs/auth.md
+  - /docs/data-mutations.md
 - If no relevant documentation exists, generate code following best practices for the framework/library being used
 
 The `/docs` directory contains authoritative guidance for this project. Adherence to these documents is mandatory for all code generation.
