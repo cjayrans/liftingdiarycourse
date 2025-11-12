@@ -3,6 +3,7 @@
 import { format, differenceInMinutes } from "date-fns";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 interface Set {
   id: string;
@@ -74,8 +75,10 @@ export function WorkoutsList({ workouts, selectedDate }: WorkoutsListProps) {
                         : `Started at ${formatTime(workout.startedAt)} • In progress`}
                     </CardDescription>
                   </div>
-                  <Button variant="outline" size="sm">
-                    View Details
+                  <Button variant="outline" size="sm" asChild>
+                    <Link href={`/dashboard/workout/${workout.id}`}>
+                      View Details
+                    </Link>
                   </Button>
                 </div>
               </CardHeader>
