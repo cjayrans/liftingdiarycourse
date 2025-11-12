@@ -80,3 +80,75 @@ export async function getUserWorkoutsByDate(date: Date) {
 
   return workoutsWithDetails;
 }
+
+export type NewWorkout = {
+  name: string | null;
+  startedAt: Date;
+};
+
+export async function createWorkout(data: NewWorkout) {
+  const session = await auth();
+  if (!session?.userId) {
+    throw new Error('Unauthorized');
+  }
+
+  // Always set userId from session, never from client input
+  const result = await db
+    .insert(workouts)
+    .values({
+      ...data,
+      userId: session.userId, // CRITICAL: Force user ownership
+    })
+    .returning();
+
+  return result[0];
+}
+
+export async function getWorkoutById(workoutId: string) {
+  const session = await auth();
+  if (!session?.userId) {
+    throw new Error('Unauthorized');
+  }
+
+  // Filter by BOTH workout ID AND user ID
+  const result = await db
+    .select()
+    .from(workouts)
+    .where(
+      and(
+        eq(workouts.id, workoutId),
+        eq(workouts.userId, session.userId) // CRITICAL: User isolation
+      )
+    )
+    .limit(1);
+
+  return result[0] ?? null;
+}
+
+export async function updateWorkout(
+  workoutId: string,
+  data: Partial<NewWorkout>
+) {
+  const session = await auth();
+  if (!session?.userId) {
+    throw new Error('Unauthorized');
+  }
+
+  // Update only if the workout belongs to the current user
+  const result = await db
+    .update(workouts)
+    .set(data)
+    .where(
+      and(
+        eq(workouts.id, workoutId),
+        eq(workouts.userId, session.userId) // CRITICAL: User isolation
+      )
+    )
+    .returning();
+
+  if (result.length === 0) {
+    throw new Error('Workout not found or unauthorized');
+  }
+
+  return result[0];
+}
